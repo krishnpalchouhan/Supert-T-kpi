@@ -49,3 +49,22 @@ var app = {
 };
 
 app.initialize();
+
+// Add to index.js or the first page that loads with your app.
+// For Intel XDK and please add this to your app.js.
+
+document.addEventListener('deviceready', function () {
+  // Enable to debug issues.
+  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+  
+  var notificationOpenedCallback = function(jsonData) {
+    console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+  };
+
+  window.plugins.OneSignal.init("b2f7f966-d8cc-11e4-bed1-df8f05be55ba",
+                                 {googleProjectNumber: "977668981273"},
+                                 notificationOpenedCallback);
+  
+  // Show an alert box if a notification comes in when the user is in your app.
+  window.plugins.OneSignal.enableInAppAlertNotification(true);
+}, false);
