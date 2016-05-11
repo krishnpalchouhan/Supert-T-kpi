@@ -1,25 +1,5 @@
 // For Intel XDK and please add this to your app.js.
-alert('1');
-document.addEventListener('deviceready', function () {
-  // Enable to debug issues.
-  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-alert('2');
-  
-  var notificationOpenedCallback = function(jsonData) {
-    console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-  alert('3');
 
-  };
-alert('4');
-
-  window.plugins.OneSignal.init("54a45a1c-c6cc-491c-b963-aa4dcc8f6abd",
-                                 {googleProjectNumber: "977668981273"},
-                                 notificationOpenedCallback);
-  alert('5');
-
-  // Show an alert box if a notification comes in when the user is in your app.
-  window.plugins.OneSignal.enableInAppAlertNotification(true);
-}, false);
 
 
 
