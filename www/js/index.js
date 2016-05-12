@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var token;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -33,31 +34,37 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        
+        var push = PushNotification.init({
+                             "android": {
+                             "senderID": "977668981273"
+                             },
+                             "ios": {
+                             "alert": "true",
+                             "badge": "true",
+                             "sound": "true"
+                             }
+                         });
+        
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
+        setTimeout(checkToken,500);
         console.log('Received Event: ' + id);
-        
-        
-        var push = PushNotification.init({
-                                         "android": {
-                                         "senderID": "781247844618"
-                                         },
-                                         "ios": {
-                                         "alert": "true",
-                                         "badge": "true",
-                                         "sound": "true"
-                                         }
-                                         });
     }
 };
+
+
+function checkToken() {
+    cordova.exec(function(message) {
+                 token = message.token;
+                 if (token.length == 0) {
+                    setTimeout(checkToken,120);
+                    return;
+                 }
+                 window.localStorage.setItem("player_id",token);
+                 },null,'GetToken','getToken',null);
+}
 
 app.initialize();
