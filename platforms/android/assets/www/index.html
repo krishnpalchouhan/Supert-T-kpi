@@ -1,49 +1,69 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event listening"></p>
+				
+                <p class="event received"></p>
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
+       
+		<script>
+		
+		//adb logcat *:d | find "kpireports.superttransport.com"
+//window.location = "dashbord.html";		
+		// Add to index.js or the first page that loads with your app.
+			// For Intel XDK and please add this to your app.js.
+
+	document.addEventListener('deviceready', function () {
+			var notificationOpenedCallback = function(jsonData) {
+				console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));				
+			getData() ;
+			};
+			window.plugins.OneSignal.init("54a45a1c-c6cc-491c-b963-aa4dcc8f6abd",
+											 {googleProjectNumber: "977668981273"},
+											 notificationOpenedCallback);
+											
+			  window.plugins.OneSignal.enableInAppAlertNotification(true);
+			  // alert('l');
+					window.plugins.OneSignal.getIds(function(ids) {
+				//	 alert('l2');
+				  window.localStorage.setItem("player_id",ids.userId );
+				  window.location = "dashbord.html";
+				});
+			  window.plugins.OneSignal.getIds();
+			  
+			  window.location = "index.html";
+			}, false); 
+		
+function getData() {
+    var ID = window.localStorage.getItem("ID")
+    $.get("http://www.superttransport.com/employee/login/?request=api&method=excelfile&user_id=" + ID, function(data, status) {
+        $('.Data_Container').empty();
+        var obj = jQuery.parseJSON(data);
+        obj.forEach(function(i, index) {
+            var ReadeStatus = "";
+            if (i.notification == 1) {
+                ReadeStatus = "gray"
+            }
+            //var html_data='<p class="bordor '+ReadeStatus+'"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></p>';
+            //var html_data='<tr><td class="text-left"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></td></tr>';
+            var html_data = '<tr class="xlslist" id="' + i.id + '"  href="' + i.url + '"><td class="text-left ' + ReadeStatus + '">' + i.name + '<small class="pull-right">' + i.upload_date + '</small></td></tr>';
+            $('.Data_Container').append(html_data);
+        });
+        jQuery('.loder').hide();
+    });
+
+}
+		</script>
+		 <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-    </body>
+		<div id="myFrame" src=""></div>
 </html>

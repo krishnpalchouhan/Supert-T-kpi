@@ -1,135 +1,69 @@
-<!doctype html>
-<html class=no-js>
-    
+<!DOCTYPE html>
+
+<html>
     <head>
-        <meta charset=utf-8>
- <meta http-equiv="Content-Security-Policy" content="default-src * data: gap:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-            <title>Login</title>
-            <meta name="format-detection" content="telephone=no">
-                <meta name="msapplication-tap-highlight" content="no">
-                    <meta name=description>
-                        <meta name=viewport content="width=device-width">
-                            
-                            <link rel=stylesheet href=styles/vendor.css>
-                                <link rel=stylesheet href=styles/main.css>
-                                    
-                                    
-                                    
-                                    <script type="text/javascript" src="js/jquery-2.0.2.js"></script>
-                                    
-                                    
-                                   
-                                  
-                                    <script type="text/javascript" src="cordova.js"></script>
-                                    <script type="text/javascript" src="js/index.js"></script>
-                                    
-                                    <link rel=stylesheet href=css/sweet-alert.css>
-                                        <script type="text/javascript" src="js/sweet-alert.js"></script>
-                                        <script type="text/javascript" src="js/app.js"></script>
-                                        
-                                        
-                                        
-
-                                        
-                                    
-                                    
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     </head>
-    
-    
-    
-    
-    
-    
-    
-    <body style="overflow-y: scroll;">
-        <!-----------------------------------------First Page--------------------------------------  -->
-        <div class="block kp">
-            <div class="login-page centered">
-                <div Class="iconpart">
-        <div class=img-container>
-                        <div class="text-center pull-right photo">
-                            <img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
-                                <h1><span> Super T KPI</span><br><small>Login</small></h1>
- 
-                                </div>
-                    </div>
-                </div>
-                <div class="loginpart">
-                    <div class=form-content>
-                        <svg class="circular loder1" height="50" width="50" style="display: none;">
-                            <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
-                        </svg>
-                        <form1 role=form class=bottom-75>
-                            <div class=table-form>
-                                <div class=form-groups>
-                                    <div class=form-group> <input id="email" type=text class="form-control input-lg" placeholder=USERNAME required> </div>
-                                    <div class=form-group> <input id="password" type=password class="form-control input-lg" placeholder=PASSWORD required> </div>
-                                    <div id="testing" ></div>
-                                </div>
-                                <div class=button-container> <button class="btn btn-default login" id="login"><img src=images/arrow.png></button> </div>
-                            </div>
-                            
-                        </form1>
-                    </div>
-                </div>	
+    <body>
+        <div class="app">
+            <div id="deviceready" class="blink">
+                <p class="event listening"></p>
+				
+                <p class="event received"></p>
             </div>
-            
         </div>
-        
-        <!-----------------------------------------First Page----------------------------------------  -->
-        
-        <!-----------------------------------------Second Page--------------------------------------- -->
-        <div id="hide" style="display: none;">
-            <snap-content snap-opt-tap-to-close=false>
-                <div class="fr " style="text-align: center;">
-                    <BR>
-                    <div class=img-container>
-                        <div class="text-center pull-right photo">
-                            
-                            <img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
-                                </div>
-                    </div>
-                    <BR>
-                </div>
-                <div class=>
-                    <div class="container ">
-                        
-                        
-                        <svg class="circular loder" height="50" width="50">
-                            <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10" />
-                        </svg>
-                        
-                        
-                    </div>
-              
-                
-                <table class="table-fill">
-                    
-                    
-                    <tbody class="table-hover Data_Container">
-                        
-                    </tbody>
-                    
-                </table>
-                
-               
-                
-                <div class="fr " id="logoutbutton" style="text-align: center; display:none">
-                    <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
-                </div>
-                
-            </snap-content>
-        </div>
-        
-        <!-----------------------------------------Second Page--------------------------------------- -->
+       
+		<script>
+		
+		//adb logcat *:d | find "kpireports.superttransport.com"
+//window.location = "dashbord.html";		
+		// Add to index.js or the first page that loads with your app.
+			// For Intel XDK and please add this to your app.js.
 
-        
-        
-        
-        
-        
-        
-        
-    </body>
-    
+	document.addEventListener('deviceready', function () {
+			var notificationOpenedCallback = function(jsonData) {
+				console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));				
+			getData() ;
+			};
+			window.plugins.OneSignal.init("54a45a1c-c6cc-491c-b963-aa4dcc8f6abd",
+											 {googleProjectNumber: "977668981273"},
+											 notificationOpenedCallback);
+											
+			  window.plugins.OneSignal.enableInAppAlertNotification(true);
+			  // alert('l');
+					window.plugins.OneSignal.getIds(function(ids) {
+				//	 alert('l2');
+				  window.localStorage.setItem("player_id",ids.userId );
+				  window.location = "dashbord.html";
+				});
+			  window.plugins.OneSignal.getIds();
+			  
+			  window.location = "index.html";
+			}, false); 
+		
+function getData() {
+    var ID = window.localStorage.getItem("ID")
+    $.get("http://www.superttransport.com/employee/login/?request=api&method=excelfile&user_id=" + ID, function(data, status) {
+        $('.Data_Container').empty();
+        var obj = jQuery.parseJSON(data);
+        obj.forEach(function(i, index) {
+            var ReadeStatus = "";
+            if (i.notification == 1) {
+                ReadeStatus = "gray"
+            }
+            //var html_data='<p class="bordor '+ReadeStatus+'"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></p>';
+            //var html_data='<tr><td class="text-left"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></td></tr>';
+            var html_data = '<tr class="xlslist" id="' + i.id + '"  href="' + i.url + '"><td class="text-left ' + ReadeStatus + '">' + i.name + '<small class="pull-right">' + i.upload_date + '</small></td></tr>';
+            $('.Data_Container').append(html_data);
+        });
+        jQuery('.loder').hide();
+    });
+
+}
+		</script>
+		 <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+		<div id="myFrame" src=""></div>
 </html>

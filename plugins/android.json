@@ -8,16 +8,11 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.dev.pushdemo"
+            "PACKAGE_NAME": "kpireports.superttransport.com"
         },
-        "phonegap-plugin-push": {
-            "SENDER_ID": "1234567",
-            "PACKAGE_NAME": "com.dev.pushdemo"
+        "onesignal-cordova-plugin": {
+            "PACKAGE_NAME": "kpireports.superttransport.com"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.dev.pushdemo"
-        }
-    }
+    "dependent_plugins": {}
 }

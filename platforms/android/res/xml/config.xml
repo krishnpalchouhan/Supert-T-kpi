@@ -1,25 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.dev.pushdemo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="kpireports.superttransport.com" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-    </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="PushNotification">
-        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
+    <feature name="OneSignalPush">
+        <param name="android-package" value="com.plugin.gcm.OneSignalPush" />
     </feature>
+    <icon density="ldpi" src="www/img/android/mipmap-ldpi/ic_launcher.png" />
+    <icon density="mdpi" src="www/img/android/mipmap-mdpi/ic_launcher.png" />
+    <icon density="hdpi" src="www/img/android/mipmap-hdpi/ic_launcher.png" />
+    <icon density="xhdpi" src="www/img/android/mipmap-xhdpi/ic_launcher.png" />
     <allow-intent href="market:*" />
-    <name>Super T KPI</name>
+    <name>KPI Reports</name>
     <description>
-       Super T KPI
+       Provides employees of Super T Transport Inc. with various KPI reports.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Super T KPI
+    <author email="sales@rockstarwebmarketing.com" href="http://cordova.io">
+         Rockstar Web Marketing LLC
     </author>
     <content src="index.html" />
+    <icon src="www/img/super_t_app_logo.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

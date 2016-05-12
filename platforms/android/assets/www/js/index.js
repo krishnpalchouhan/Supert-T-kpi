@@ -45,18 +45,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        
-        
-        var push = PushNotification.init({
-                                         "android": {
-                                         "senderID": "781247844618"
-                                         },
-                                         "ios": {
-                                         "alert": "true",
-                                         "badge": "true",
-                                         "sound": "true"
-                                         }
-                                         });
     }
 };
 

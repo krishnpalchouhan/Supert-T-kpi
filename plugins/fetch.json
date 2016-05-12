@@ -7,14 +7,12 @@
         "is_top_level": true,
         "variables": {}
     },
-    "phonegap-plugin-push": {
+    "onesignal-cordova-plugin": {
         "source": {
             "type": "registry",
-            "id": "phonegap-plugin-push"
+            "id": "onesignal-cordova-plugin"
         },
         "is_top_level": true,
-        "variables": {
-            "SENDER_ID": "1234567"
-        }
+        "variables": {}
     }
 }
