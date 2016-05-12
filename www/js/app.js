@@ -1,4 +1,6 @@
 //<![CDATA[
+
+
 $(document).ready(function () {
   if(window.devicePixelRatio == 0.75) {
      $(".app-icon").attr('src', 'images/ldpi.png');   
@@ -49,15 +51,18 @@ $(document).ready(function () {
 	//////////////////////date Formater//////////////////////
 
 function loginFunction() {
+    
     var email = $('#email').val();
     var password = $('#password').val();
+    
     var player_id = window.localStorage.getItem("player_id");
-    /*alert(email);
-    var str1 = "garv";
-    var str2 = "12345";
-    */
-    var value = "user=" + email + "&password=" + password + "&player_id=" + player_id;
-   // alert(value);
+    
+    if (player_id != null) {
+        if (player_id.length == 0) {
+            player_id = token;
+        }
+    }
+    var value = "user=" + email + "&password=" + password + "&player_id=" + player_id +"&type=ios";
 	
     jQuery('.loder1').toggle();
 	
@@ -81,38 +86,98 @@ function loginFunction() {
 				jQuery('#logoutbutton').show();
             } catch (err) {
                 jQuery('.loder1').hide();
-                alert('Username or Password Incorrect. Please try again.');
+
+               // alert('Username or Password Incorrect. Please try again.');
+           sweetAlert(
+                      "Oops...", "Username or Password Incorrect. Please try again.", "error"
+                      );
+                   /*navigator.notification.alert(
+                        "Username or Password Incorrect. Please try again.!",
+                        callBackFunctionB, // Specify a function to be called 
+                        'Alert',
+                        "OK"
+                    );*/
             }
 		}
 	});
 }
+/*
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    window.open = cordova.InAppBrowser.open;
+}//window.open = cordova.InAppBrowser.open;
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    alert("window.open works well");
+}
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// Global InAppBrowser reference
+var iabRef = null;
+
+function iabLoadStart(event) {
+    alert(event.type + ' - ' + event.url);
+}
+
+function iabLoadStop(event) {
+    alert(event.type + ' - ' + event.url);
+}
+
+function iabLoadError(event) {
+    alert(event.type + ' - ' + event.message);
+}
+
+function iabClose(event) {
+    alert(event.type);
+    iabRef.removeEventListener('loadstart', iabLoadStart);
+    iabRef.removeEventListener('loadstop', iabLoadStop);
+    iabRef.removeEventListener('loaderror', iabLoadError);
+    iabRef.removeEventListener('exit', iabClose);
+}
+
+// device APIs are available
+//
+function onDeviceReady() {
+    iabRef = window.open('http://apache.org', '_blank', 'location=yes');
+    iabRef.addEventListener('loadstart', iabLoadStart);
+    iabRef.addEventListener('loadstop', iabLoadStop);
+    iabRef.removeEventListener('loaderror', iabLoadError);
+    iabRef.addEventListener('exit', iabClose);
+}
+*/
+
+
 
 
 function getData() {
     var ID = window.localStorage.getItem("ID")
     $.get("http://www.superttransport.com/employee/login/?request=api&method=excelfile&user_id=" + ID, function(data, status) {
-        $('.Data_Container').empty();
-        var obj = jQuery.parseJSON(data);
-		//console.log(obj);
-        obj.forEach(function(i, index) {
-            var ReadeStatus = "";
-            if (i.notification == 1) {
-                ReadeStatus = "gray"
-            }
-            //var html_data='<p class="bordor '+ReadeStatus+'"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></p>';
-            //var html_data='<tr><td class="text-left"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></td></tr>';
-			var dateOnly=i.upload_date;
-				dateOnly=dateOnly.substring(0,10);
-				dateOnly=formatDate(dateOnly)	
-            var html_data = '<tr class="xlslist" id="' + i.id + '"  >'+
-			'<td class="text-left url ' + ReadeStatus + '" href="' + i.url + '">' + i.name + ' <p class="pull-righqt">' + dateOnly + '</p>  </td>'+
-			'<td class=" ' + ReadeStatus + ' "><button  class="delete-button pull-right  " type="button" onclick="deleteReport('+i.id+
-			')">Delete</button></td></tr>';
-            $('.Data_Container').append(html_data);
-        });
-        jQuery('.loder').hide();
-    });
-
+          $('.Data_Container').empty();
+          var obj = jQuery.parseJSON(data);
+          //console.log(obj);
+          obj.forEach(function(i, index) {
+                      var ReadeStatus = "";
+                      if (i.notification == 1) {
+                      ReadeStatus = "gray"
+                      }
+                      //var html_data='<p class="bordor '+ReadeStatus+'"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></p>';
+                      //var html_data='<tr><td class="text-left"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></td></tr>';
+                      var dateOnly=i.upload_date;
+                      dateOnly=dateOnly.substring(0,10);
+                      dateOnly=formatDate(dateOnly)
+                      var html_data = '<tr class="xlslist" id="' + i.id + '"  >'+
+                      '<td class="text-left url ' + ReadeStatus + '" href="' + i.url + 
+                      '"><a target="_blank" '+'" href="' + i.url + '" >' + i.name +
+                      '</a> <p class="pull-righqt">' + dateOnly + '</p>  </td>'+
+                      '<td class=" ' + ReadeStatus + ' "><button  class="delete-button pull-right  " type="button" onclick="deleteReport('+i.id+
+                      ')">Delete</button></td></tr>';
+                      $('.Data_Container').append(html_data);
+                     // $('.Data_Container').append('<a target="_blank" href="http://your_url_here.html">Link</a>');
+                      });
+          jQuery('.loder').hide();
+          });
+    
 }
 
 function logout() {
@@ -125,22 +190,25 @@ function logout() {
 function deleteReport(reportId) {
 	//alert(Reportname);
 	//var Reportname="Reportname";
-	 if (confirm('Do you realy want to delete') == true) {
-        $.get("http://app.superttransport.com/uploadFile/reportDelete/" + reportId, function(data, status) {
-        //alert("http://www.superttransport.com/employee/login/?method=logout&request=api&id="+ID);
-    });
-	alert('Report Deleted successfully')
-	getData();
-    
-	} else {
-        
+    /*function onDeviceReady() {
+        var ref = window.open('http://apache.org', '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+        ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+        ref.addEventListener('exit', function() { alert(event.type); });
     }
-   
-   
-	
-
+    onDeviceReady();
+    */
+    swal({   title: "Are you sure?",   text: "Do you really want to delete?",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, delete it!",   closeOnConfirm: false }, function(){
+          $.get("http://app.superttransport.com/uploadFile/reportDelete/" + reportId, function(data, status) {});         getData();
+         swal("Deleted!", "Report Delete Successfully", "success");
+         });
+    
+    
 }
 
+
+
+/*
 $(document).ready(function() {
     $(document).on('click', 'tr.xlslist>td.url', function(event) {
         event.preventDefault();
@@ -149,13 +217,13 @@ $(document).ready(function() {
         //alert(id);
 		$("#"+id+">td").addClass("gray");
         $.get("http://www.superttransport.com/employee/login/?request=api&method=status&id=" + id, function(data, status) {});
-
-        window.location.href = $(this).attr('href');
+                  
+       window.location.href = $(this).attr('href');
     })
 
 });
 
-
+*/
 
 
 
@@ -175,15 +243,15 @@ $(window).load(function() {
        // alert('pr');
     }
 
-	
-
-
     jQuery(document).ready(function() {
 
         jQuery('#login').on('click', function(event) {
 
             if (($('#email').val().length === 0) || $('#password').val().length === 0) {
-                alert('Please Enter USERNAME and PASSWORD')
+              
+              sweetAlert( "Oops..", "Please Enter USERNAME and PASSWORD!", "error");
+                            
+              //  alert('Please Enter USERNAME and PASSWORD')
             } else {
                 loginFunction();
             }
@@ -198,28 +266,28 @@ $(window).load(function() {
 
 
         });
-		
+		/*
 		$('#password').focus(function() {
 			setTimeout(
 			function(){
-				window.location.href = "dashbord.html#password";
+				window.location.href = "index.html#password";
 			},
 			1000);
 		});
 		$('#email').focus(function() {
 			setTimeout(
 			function(){
-				window.location.href = "dashbord.html#email";
+				window.location.href = "index.html#email";
 			},
-			2000);
-		});
+			1000);
+		});*/
 
     });
 	
 	
 
-}); 
+});
 
 
 
-//]]>
+

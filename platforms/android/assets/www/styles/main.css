@@ -1296,7 +1296,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #FFF;
-  background-color: #000071;
+  background-color: #262686;
 }
 
 input,button,select,textarea {
@@ -4334,34 +4334,6 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 @media (max-device-width:480px) and (orientation:landscape) {
-	
-  .iconpart{
-	  width: 39%;
-    display: inline-block;
-  }
-    .loginpart{
-		width: 60%;
-    display: inline-block;
-	  
-  }
-  .navbar-fixed-top .navbar-collapse,.navbar-fixed-bottom .navbar-collapse {
-    max-height: 200px;
-  }
-}
-@media (max-device-width:1025px) and (orientation:landscape) {
-.login-page {
-    padding: 15px;
-    margin-top: 10%;
-}
-  .iconpart{
-	  width: 37%;
-    display: inline-block;
-  }
-    .loginpart{
-		width: 60%;
-    display: inline-block;
-	  
-  }
   .navbar-fixed-top .navbar-collapse,.navbar-fixed-bottom .navbar-collapse {
     max-height: 200px;
   }
@@ -6909,7 +6881,7 @@ button.close {
   display: table;
   width: 100%;
   height: 100%;
-  background: #262686;
+  background: #000071;
   color: #fff;
   padding: 3em;
   position: relative;
@@ -6917,14 +6889,14 @@ button.close {
 
 .login-page:before {
   content: '';
-  background-color: rgb(38, 38, 134);
+  background-color: rgba(255,255,255,.15);
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   width: 40%;
-  border-right: solid 120px #262686;
+  border-right: solid 120px #000071;
 }
 
 .login-page h1 {
@@ -9789,7 +9761,7 @@ th {
   color:#D5DDE5;;
   background:#1b1e24;
   border-bottom:4px solid #9ea7af;
-  /*border-right: 1px solid #343a45;*/
+  border-right: 1px solid #343a45;
   font-size:23px;
   font-weight: 100;
   padding:24px;
@@ -9817,10 +9789,10 @@ tr {
 }
  
 tr:hover td {
-	background: #EBEBEB;
-    color: #72768B;
-    border-top: 1px solid #22262e;
-    border-bottom: 1px solid #22262E;
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+  border-bottom: 1px solid #22262e;
 }
  
 
@@ -9854,13 +9826,13 @@ tr:last-child td:last-child {
  
 td {
   background:#FFFFFF;
-  padding:0px 15px 0px;
+  padding:20px;
   text-align:left;
   vertical-align:middle;
   font-weight:300;
   font-size:18px;
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  /*border-right: 1px solid #C1C3D1;*/
+  border-right: 1px solid #C1C3D1;
 }
 
 td:last-child {
@@ -9986,42 +9958,5 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #FFF;
-  background-color: #464698;
+  background-color: #262686;
 }
-.delete-button{
-	color: #FFFFFF;
-    font-weight: 400;
-    background-color: #1B1E24;
-}
-.tdtd{
-	color: #FFFFFF;
-    font-weight: 400;
-    background-color: #1B1E24;
-}
-.btn-white {
-    border-radius: 0!important;
-    border: 3px solid;
-    background: #1B1E24;
-    /* padding: 23px; */
-    margin: 9px;
-}
-.block {
-}
-
-.block:before {
-  vertical-align: middle;
-}
-
-.centered {
-  vertical-align: middle;
-}
-
-.test {
-    width: 100px;
-        margin-top: 1000000px;
-    position: relative;   
-}
-.login-page h1 span {
-    font-size: 21px;
-}
-

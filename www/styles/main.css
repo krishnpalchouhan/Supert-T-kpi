@@ -1296,7 +1296,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #FFF;
-  background-color: #000071;
+  background-color: #020080;
 }
 
 input,button,select,textarea {
@@ -1306,7 +1306,7 @@ input,button,select,textarea {
 }
 
 a {
-  color: #000071;
+  color: #020080;
   text-decoration: none;
 }
 
@@ -6909,22 +6909,22 @@ button.close {
   display: table;
   width: 100%;
   height: 100%;
-  background: #262686;
-  color: #fff;
+  background: #020080;
+  /*color: #fff;
   padding: 3em;
-  position: relative;
+  position: relative;*/
 }
 
 .login-page:before {
   content: '';
-  background-color: rgb(38, 38, 134);
+  background-color: rgb(2, 0, 128);
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   width: 40%;
-  border-right: solid 120px #262686;
+  border-right: solid 120px #020080;
 }
 
 .login-page h1 {
@@ -7043,8 +7043,8 @@ button.close {
   height: 110px;
   width: 100px;
   border-radius: 0;
-  background: #000071;
-  border-color: #000071;
+  background: #020048;
+  border-color: #020048;
   box-shadow: none;
   margin-left: 15px;
   color: #fff;
@@ -7099,7 +7099,7 @@ button.close {
 @media (max-width:768px) {
   .login-page:before {
     content: '';
-    background-color: rgba(255,255,255,.15);
+    
     position: absolute;
     left: 0;
     right: 0;
@@ -9641,7 +9641,7 @@ html,body {
 .btn-white {
     border-radius: 0!important;
     border: 3px solid;
-    background: #000071;
+    background: #020080;
 }
 .white{
 	background: white !important;
@@ -9986,7 +9986,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #FFF;
-  background-color: #464698;
+  background-color: #020080;
 }
 .delete-button{
 	color: #FFFFFF;
@@ -10024,4 +10024,16 @@ body {
 .login-page h1 span {
     font-size: 21px;
 }
-
+.table-fill {
+    max-height: 100px;
+    background: white;
+    border-radius: 3px;
+    border-collapse: collapse;
+    height: 300px;
+    margin: auto;
+    max-width: 600px;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+}

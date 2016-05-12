@@ -1,128 +1,224 @@
 <!doctype html>
-<html class=no-js>
-
-<head>
-    <meta charset=utf-8>
-    <title>Login</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name=description>
-    <meta name=viewport content="width=device-width">
-
-    <link rel=stylesheet href=styles/vendor.css>
-    <link rel=stylesheet href=styles/main.css>
+<html class=no-js> 
+ <head> <meta charset=utf-8> <title>Login</title> 
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+		<meta name=description> <meta name=viewport content="width=device-width">
 	
-    <script type="text/javascript" src="js/jquery-2.0.2.js"></script>
-    <!--<script type="text/javascript" src="js/notification.js"></script>
+	<link rel=stylesheet href=styles/vendor.css> <link rel=stylesheet href=styles/main.css>
+	<!--<script type="text/javascript" src="js/notification.js"></script>
 	---->
-		<script>
-		
-		//adb logcat *:d | find "kpireports.superttransport.com"
-//window.location = "dashbord.html";		
-		// Add to index.js or the first page that loads with your app.
-			// For Intel XDK and please add this to your app.js.
+	<script type="text/javascript" src="js/jquery-2.0.2.js"></script> 
+     <script type="text/javascript" src="js/index.js"></script>
+	 
+	 
+	 
+	 
+	<script type="text/javascript">
+	//<![CDATA[
+	function myFunction() {
 
-			document.addEventListener('deviceready', function () {
-	//alert("hh");
-	
-	//alert('c1');
-			// Enable to debug issues.
-			// window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-			  
-			  var notificationOpenedCallback = function(jsonData) {
-				//console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-			 //jQuery('.loder').toogle();	
-			getData() ;
+	    var email = $('#email').val();
+	    var password = $('#password').val();
+	    var player_id = window.localStorage.getItem("player_id");
+	    /*alert(email);
+	    var str1 = "garv";
+	    var str2 = "12345";
+	    */
+	    var value = "user=" + email + "&password=" + password+"&player_id="+player_id;
+//alert(value);
+		jQuery('.loder1').toggle();
+	    $.ajax({
+	        type: "POST",
+	        url: "http://www.superttransport.com/employee/login/?request=api&method=login",
+	        data: value,
+	        success: function(msg) {
+	            try {
+	                var obj = jQuery.parseJSON(msg);
+	                console.log(obj['data']['ID']);
+	                console.log(obj['data']['display_name']);
+	                window.localStorage.setItem("ID", obj['data']['ID']);
+	                window.localStorage.setItem("display_name", obj['data']['display_name']);
+	                var display_name = window.localStorage.getItem("display_name");
+	                //alert(display_name);
+	                jQuery('#hide').toggle();
+	                //alert('wow'+msg);
+					geturl();
+					//				jQuery('.loder').toggle();
+	            } catch (err) {
+					jQuery('.loder1').hide();
+					alert('Username or Password Incorrect. Please try again.');
+	            }
+
+	        }
 			
-			  };
-
-			  window.plugins.OneSignal.init("54a45a1c-c6cc-491c-b963-aa4dcc8f6abd",
-											 {googleProjectNumber: "977668981273"},
-											 notificationOpenedCallback);
-			  window.plugins.OneSignal.enableInAppAlertNotification(true);
-					window.plugins.OneSignal.getIds(function(ids) {
-				  window.localStorage.setItem("player_id",ids.userId );
-				 // window.location = "dashbord.html";
-				});
-			  window.plugins.OneSignal.getIds();
-			 // window.location = "index.html";
-			}, false); 
+	    });
 		
 
-		</script>
-		 <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+	}
+	
+ function geturl(){
+	var ID = window.localStorage.getItem("ID")
+	$.get("http://www.superttransport.com/employee/login/?request=api&method=excelfile&user_id="+ID, function(data, status){
+	 $('.Data_Container').empty();
+				var obj = jQuery.parseJSON(data);
+				obj.forEach(function (i,index){
+				var ReadeStatus="";
+				if(i.notification==1){
+				ReadeStatus="gray"
+				}
+				//var html_data='<p class="bordor '+ReadeStatus+'"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></p>';
+				//var html_data='<tr><td class="text-left"><a class="xlslist" id="'+i.id+'" href="'+i.url+'">'+i.name+'</a></td></tr>';
+				var html_data='<tr class="xlslist" id="'+i.id+'"  href="'+i.url+'"><td class="text-left '+ReadeStatus+'">'+i.name+'<small class="pull-right">'+i.upload_date+'</small></td></tr>';
+				$('.Data_Container').append(html_data);
+			});	
+			jQuery('.loder').hide();
+        });
+		
+ } 
+
+  function logout(){
+	var ID = window.localStorage.getItem("ID");
+	$.get("http://www.superttransport.com/employee/login/?method=logout&request=api&id="+ID, function(data, status){
+			//alert("http://www.superttransport.com/employee/login/?method=logout&request=api&id="+ID);
+        });
+		
+ }
+ 
+ $(document).ready(function(){
+
+ ///
+ 
+	$(document).on('click', 'tr.xlslist', function(event) {
+		event.preventDefault();
+		//alert($(this).attr('href'));
+			var id =$(this).attr('id');
+		//alert(id);
+			$.get("http://www.superttransport.com/employee/login/?request=api&method=status&id="+id, function(data, status){
+			});
+		
+		window.location.href=$(this).attr('href');
+	})
+
+});
+ 
+	
+$(window).load(function(){
+ //check login
+ try{
+ 
+ var ID = window.localStorage.getItem("ID");
+
+ if(ID>0){
+			jQuery('#hide').toggle();
+			geturl();
+ }
+ else{
+//  alert('praa');
+ }
+ }catch(err){
+ alert('pr');
+ }
 
 
-</head>
 
-<body style="overflow-y: scroll;"> 
-	<!-----------------------------------------First Page----------------------------------------->
-    <div class="block kp">
-        <div class="login-page centered">
-			<div Class="iconpart">
-			     <div class=img-container>
-					<div class="text-center pull-right photo">
-						<img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
-					  
-						<h1><span> KPI Reports</span><br><small>Login</small></h1>
-					   
+jQuery(document).ready(function () {
+ 
+    jQuery('#login').on('click', function (event) {
+       
+	 if( ($('#email').val().length === 0 )||$('#password').val().length === 0 ){
+	 alert('Please Enter USERNAME and PASSWORD')
+	 }else{
+	 	myFunction();
+	 }
+	
+    });
+	jQuery('#logout').on('click', function (event) {
+	window.localStorage.removeItem("display_name");
+	logout();
+	window.localStorage.removeItem("ID");
+    jQuery('.loder1').hide();
+	jQuery('#hide').toggle();
+	
+		
+    });
+});
+});//]]> 
+
+
+</script>
+
+ </head>
+  <body > 
+	<div>
+		<div class=login-page>
+			</BR>
+		   <div class=img-container>
+			  <div class="text-center pull-right photo">
+				 <img src=images/flat-avatar.png class="user-avatar img-circle img-responsive"> 
+				 </BR></BR>
+				 <h1><span> KPI Reports</span><br><small>Login</small></h1>
+				 </BR>
+			  </div>
+		   </div>
+		   <div class=form-content>
+		  <svg class="circular loder1" height="50" width="50" style="display: none;">
+					  <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
+			</svg>
+			  <form1 role=form class=bottom-75>
+				 <div class=table-form>
+					<div class=form-groups>
+					   <div class=form-group> <input id="email" type=text class="form-control input-lg" placeholder=USERNAME  required> </div>
+					   <div class=form-group> <input id="password" type=password class="form-control input-lg" placeholder=PASSWORD required> </div>
 					</div>
-				</div>
-			</div>
-			<div class="loginpart">
-				<div class=form-content>
-					<svg class="circular loder1" height="50" width="50" style="display: none;">
-						  <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
-				</svg>
-					<form1 role=form class=bottom-75>
-						<div class=table-form>
-							<div class=form-groups>
-								<div class=form-group> <input id="email" type=text class="form-control input-lg" placeholder=USERNAME required> </div>
-								<div class=form-group> <input id="password" type=password class="form-control input-lg" placeholder=PASSWORD required> </div>
-								<div id="testing" ></div>
-							</div>
-							<div class=button-container> <button class="btn btn-default login" id="login"><img src=images/arrow.png></button> </div>
-						</div>
-						<!-- <div class=remember> <label class=checkbox1 for=Option> <input id=Option type=checkbox> <span></span> </label> remember me <span class=pass> forgot password?</span> </div>-->
-					</form1>
-				</div>
-			</div>	
-        </div>
-		
-    </div>
-	
-	<!-----------------------------------------First Page----------------------------------------->
-	
-	
-	<!-----------------------------------------Second Page----------------------------------------->
-    <div id="hide" style="display: none;">
-        <snap-content snap-opt-tap-to-close=false>
-            <div class="fr " style="text-align: center;">
-                <!--<a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
+					<div class=button-container> <button class="btn btn-default login" id="login"><img src=images/arrow.png></button> </div>
+				 </div>
+				<!-- <div class=remember> <label class=checkbox1 for=Option> <input id=Option type=checkbox> <span></span> </label> remember me <span class=pass> forgot password?</span> </div>-->
+			  </form1>
+		   </div>
+		</div>
+	</div>
+	<div id="hide" style="display: none;">
+<style>
+<!--.bordor{
+
+
+    border-radius: 0!important;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    background: 0 0;
+    color: #D8CFCF;
+	margin-bottom: -2px !important;
+}
+.btn-white {
+    border-radius: 0!important;
+    border: 3px solid;
+    background: #000071;
+}-->
+
+</style>
+
+		 <snap-content snap-opt-tap-to-close=false>
+			 <div class="fr " style="text-align: center;">
+				<!--<a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
 				 <h2> Welcome<small id="displayName"></small></h2>-->
-                <BR>
-                <div class=img-container>
-                    <div class="text-center pull-right photo">
-                        <!-- <img src=images/flat-avatar.png class="user-avatar img-circle img-responsive"> 
-			-->
-                        <!--<img class="app-icon" src="images/mdpi.png" class="user-avatar img-circle img-responsive">-->
-						<img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
-                    </div>
-                </div>
-                <BR>
-            </div>
-            <div class=>
-                <div class="container ">
-
-
-                    <svg class="circular loder" height="50" width="50">
+			<div class=img-container>
+			  <div class="text-center pull-right photo">
+				 <img src=images/flat-avatar.png class="user-avatar img-circle img-responsive"> 
+			
+			  </div>
+		   </div>
+			  </div>
+			  <div class=>
+				 <div class="container ">
+					
+					
+					<svg class="circular loder" height="50" width="50">
 					  <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10" />
 					</svg>
-
 					
-                    <!--<p class="bordor">
+					
+					<!--<p class="bordor">
 					 <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >New Xls File</a>
 					</p>
 					<p class="bordor" style="background: white;">
@@ -144,41 +240,31 @@
 					  <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >data</a>
 					</p>
 					<br> 
-					<br> -->
-					
-                </div>
-            </div>
-            <table class="table-fill">
-           <!--     <thead>
-                    <tr>
-					<th class="text-left"> </th>
-					<th class="text-left"> </th>
-                        <!--<th class="text-left"> <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white pull-right">Logout</a></th>--->
-               <!--     </tr>
-                </thead>-->
-
-                <tbody class="table-hover Data_Container">
+					<br> 
+					<p> <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a> </p>-->
+				 </div>
+			  </div>
+			  
+			  
+			  <table class="table-fill">
+				<thead>
+				<tr>
+				<th class="text-left">	 <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white pull-right" >Logout</a></th>
+				</tr>
+				</thead>
 				
-                    <!--
-					<tr class="xlslist" id="14" href="http://app.superttransport.com/images/xlsFile/570f23e2ee356.xlsx">
-					<td class="text-left ">333213213<small >2016-04-13 23:00:19</small> <button  class="pull-right" type="button">Click Me!</button></td>
+				<tbody class="table-hover Data_Container">
 				
-					</tr>
+				<!--
+				
 				<tr class="xlslist" id="1" href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls"><td class="text-left">January <small class="pull-right">20-12-2014</small></td></tr>
 				<!----->
-				
-                </tbody>
-				
-            </table>
-			
-			<div class="fr " id="logoutbutton" style="text-align: center; display:none">
-                <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
-            </div>
+				</tbody>
+				</table>
+		   </snap-content>
+	</div>
 
-        </snap-content>
-    </div>
+	</body>
+	
+	</html> 
 
-	<!-----------------------------------------Second Page----------------------------------------->
-</body>
-
-</html>

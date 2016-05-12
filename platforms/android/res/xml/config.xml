@@ -8,10 +8,6 @@
     <feature name="OneSignalPush">
         <param name="android-package" value="com.plugin.gcm.OneSignalPush" />
     </feature>
-    <icon density="ldpi" src="www/img/android/mipmap-ldpi/ic_launcher.png" />
-    <icon density="mdpi" src="www/img/android/mipmap-mdpi/ic_launcher.png" />
-    <icon density="hdpi" src="www/img/android/mipmap-hdpi/ic_launcher.png" />
-    <icon density="xhdpi" src="www/img/android/mipmap-xhdpi/ic_launcher.png" />
     <allow-intent href="market:*" />
     <name>KPI Reports</name>
     <description>
