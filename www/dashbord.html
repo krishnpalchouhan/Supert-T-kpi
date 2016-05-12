@@ -1,184 +1,135 @@
 <!doctype html>
 <html class=no-js>
+    
+    <head>
+        <meta charset=utf-8>
+ <meta http-equiv="Content-Security-Policy" content="default-src * data: gap:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+            <title>Login</title>
+            <meta name="format-detection" content="telephone=no">
+                <meta name="msapplication-tap-highlight" content="no">
+                    <meta name=description>
+                        <meta name=viewport content="width=device-width">
+                            
+                            <link rel=stylesheet href=styles/vendor.css>
+                                <link rel=stylesheet href=styles/main.css>
+                                    
+                                    
+                                    
+                                    <script type="text/javascript" src="js/jquery-2.0.2.js"></script>
+                                    
+                                    
+                                   
+                                  
+                                    <script type="text/javascript" src="cordova.js"></script>
+                                    <script type="text/javascript" src="js/index.js"></script>
+                                    
+                                    <link rel=stylesheet href=css/sweet-alert.css>
+                                        <script type="text/javascript" src="js/sweet-alert.js"></script>
+                                        <script type="text/javascript" src="js/app.js"></script>
+                                        
+                                        
+                                        
 
-<head>
-    <meta charset=utf-8>
-    <title>Login</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name=description>
-    <meta name=viewport content="width=device-width">
-
-    <link rel=stylesheet href=styles/vendor.css>
-    <link rel=stylesheet href=styles/main.css>
-	
-    <script type="text/javascript" src="js/jquery-2.0.2.js"></script>
-    <!--<script type="text/javascript" src="js/notification.js"></script>
-	---->
-		<script>
-		
-		//adb logcat *:d | find "kpireports.superttransport.com"
-//window.location = "dashbord.html";		
-		// Add to index.js or the first page that loads with your app.
-			// For Intel XDK and please add this to your app.js.
-
-			document.addEventListener('deviceready', function () {
-	//alert("hh");
-	
-	//alert('c1');
-			// Enable to debug issues.
-			// window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-			  
-			  var notificationOpenedCallback = function(jsonData) {
-				//console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-			 //jQuery('.loder').toogle();	
-			getData() ;
-			
-			  };
-
-			  window.plugins.OneSignal.init("54a45a1c-c6cc-491c-b963-aa4dcc8f6abd",
-											 {googleProjectNumber: "977668981273"},
-											 notificationOpenedCallback);
-			  window.plugins.OneSignal.enableInAppAlertNotification(true);
-					window.plugins.OneSignal.getIds(function(ids) {
-				  window.localStorage.setItem("player_id",ids.userId );
-				 // window.location = "dashbord.html";
-				});
-			  window.plugins.OneSignal.getIds();
-			 // window.location = "index.html";
-			}, false); 
-		
-
-		</script>
-		 <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-
-
-</head>
-
-<body style="overflow-y: scroll;"> 
-	<!-----------------------------------------First Page----------------------------------------->
-    <div class="block kp">
-        <div class="login-page centered">
-			<div Class="iconpart">
-			     <div class=img-container>
-					<div class="text-center pull-right photo">
-						<img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
-					  
-						<h1><span> KPI Reports</span><br><small>Login</small></h1>
-					   
-					</div>
-				</div>
-			</div>
-			<div class="loginpart">
-				<div class=form-content>
-					<svg class="circular loder1" height="50" width="50" style="display: none;">
-						  <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
-				</svg>
-					<form1 role=form class=bottom-75>
-						<div class=table-form>
-							<div class=form-groups>
-								<div class=form-group> <input id="email" type=text class="form-control input-lg" placeholder=USERNAME required> </div>
-								<div class=form-group> <input id="password" type=password class="form-control input-lg" placeholder=PASSWORD required> </div>
-								<div id="testing" ></div>
-							</div>
-							<div class=button-container> <button class="btn btn-default login" id="login"><img src=images/arrow.png></button> </div>
-						</div>
-						<!-- <div class=remember> <label class=checkbox1 for=Option> <input id=Option type=checkbox> <span></span> </label> remember me <span class=pass> forgot password?</span> </div>-->
-					</form1>
-				</div>
-			</div>	
-        </div>
-		
-    </div>
-	
-	<!-----------------------------------------First Page----------------------------------------->
-	
-	
-	<!-----------------------------------------Second Page----------------------------------------->
-    <div id="hide" style="display: none;">
-        <snap-content snap-opt-tap-to-close=false>
-            <div class="fr " style="text-align: center;">
-                <!--<a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
-				 <h2> Welcome<small id="displayName"></small></h2>-->
-                <BR>
-                <div class=img-container>
-                    <div class="text-center pull-right photo">
-                        <!-- <img src=images/flat-avatar.png class="user-avatar img-circle img-responsive"> 
-			-->
-                        <!--<img class="app-icon" src="images/mdpi.png" class="user-avatar img-circle img-responsive">-->
-						<img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
+                                        
+                                    
+                                    
+    </head>
+    
+    
+    
+    
+    
+    
+    
+    <body style="overflow-y: scroll;">
+        <!-----------------------------------------First Page--------------------------------------  -->
+        <div class="block kp">
+            <div class="login-page centered">
+                <div Class="iconpart">
+        <div class=img-container>
+                        <div class="text-center pull-right photo">
+                            <img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
+                                <h1><span> KPI Reports</span><br><small>Login</small></h1>
+ 
+                                </div>
                     </div>
                 </div>
-                <BR>
+                <div class="loginpart">
+                    <div class=form-content>
+                        <svg class="circular loder1" height="50" width="50" style="display: none;">
+                            <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10"></circle>
+                        </svg>
+                        <form1 role=form class=bottom-75>
+                            <div class=table-form>
+                                <div class=form-groups>
+                                    <div class=form-group> <input id="email" type=text class="form-control input-lg" placeholder=USERNAME required> </div>
+                                    <div class=form-group> <input id="password" type=password class="form-control input-lg" placeholder=PASSWORD required> </div>
+                                    <div id="testing" ></div>
+                                </div>
+                                <div class=button-container> <button class="btn btn-default login" id="login"><img src=images/arrow.png></button> </div>
+                            </div>
+                            
+                        </form1>
+                    </div>
+                </div>	
             </div>
-            <div class=>
-                <div class="container ">
-
-
-                    <svg class="circular loder" height="50" width="50">
-					  <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10" />
-					</svg>
-
-					
-                    <!--<p class="bordor">
-					 <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >New Xls File</a>
-					</p>
-					<p class="bordor" style="background: white;">
-					 <a href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls">New Xls File</a>
-					</p>
-					<p class="bordor">
-					  <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >data</a>
-					</p>
-					<p class="bordor">
-					  <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls">All 1</a>
-					</p>
-					<p class="bordor">
-					 <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >New Xls File</a>
-					</p>
-					<p class="bordor" style="background: white;">
-					 <a href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls">New Xls File</a>
-					</p>
-					<p class="bordor">
-					  <a   href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls" >data</a>
-					</p>
-					<br> 
-					<br> -->
-					
+            
+        </div>
+        
+        <!-----------------------------------------First Page----------------------------------------  -->
+        
+        <!-----------------------------------------Second Page--------------------------------------- -->
+        <div id="hide" style="display: none;">
+            <snap-content snap-opt-tap-to-close=false>
+                <div class="fr " style="text-align: center;">
+                    <BR>
+                    <div class=img-container>
+                        <div class="text-center pull-right photo">
+                            
+                            <img src="images/mdpi.png" class="user-avatar img-circle img-responsive" >
+                                </div>
+                    </div>
+                    <BR>
                 </div>
-            </div>
-            <table class="table-fill">
-           <!--     <thead>
-                    <tr>
-					<th class="text-left"> </th>
-					<th class="text-left"> </th>
-                        <!--<th class="text-left"> <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white pull-right">Logout</a></th>--->
-               <!--     </tr>
-                </thead>-->
+                <div class=>
+                    <div class="container ">
+                        
+                        
+                        <svg class="circular loder" height="50" width="50">
+                            <circle class="path" cx="25" cy="25.2" r="19.9" fill="none" stroke-width="6" stroke-miterlimit="10" />
+                        </svg>
+                        
+                        
+                    </div>
+              
+                
+                <table class="table-fill">
+                    
+                    
+                    <tbody class="table-hover Data_Container">
+                        
+                    </tbody>
+                    
+                </table>
+                
+               
+                
+                <div class="fr " id="logoutbutton" style="text-align: center; display:none">
+                    <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
+                </div>
+                
+            </snap-content>
+        </div>
+        
+        <!-----------------------------------------Second Page--------------------------------------- -->
 
-                <tbody class="table-hover Data_Container">
-				
-                    <!--
-					<tr class="xlslist" id="14" href="http://app.superttransport.com/images/xlsFile/570f23e2ee356.xlsx">
-					<td class="text-left ">333213213<small >2016-04-13 23:00:19</small> <button  class="pull-right" type="button">Click Me!</button></td>
-				
-					</tr>
-				<tr class="xlslist" id="1" href="http://www.iitk.ac.in/esc101/2010Jan/Student-list.xls"><td class="text-left">January <small class="pull-right">20-12-2014</small></td></tr>
-				<!----->
-				
-                </tbody>
-				
-            </table>
-			
-			<div class="fr " id="logoutbutton" style="text-align: center; display:none">
-                <a id="logout" ui-sref=login class="btn btn-primary btn-lg btn-white" >Logout</a>
-            </div>
-
-        </snap-content>
-    </div>
-
-	<!-----------------------------------------Second Page----------------------------------------->
-</body>
-
+        
+        
+        
+        
+        
+        
+        
+    </body>
+    
 </html>
